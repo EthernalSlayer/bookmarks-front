@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { PICTURE_API_REQUEST } from '../store/constants/action-types';
 import { Row, Col, Table } from 'react-bootstrap';
@@ -9,11 +9,6 @@ import EditPictureTag from './EditPictureTag';
 import PicturePagination from './PicturePagination';
 
 function Picture({ fetching, pictures, error, getData, actualTag }) {
-	useEffect(() => {
-		let payload = { page: 1 };
-		getData(payload);
-	}, [getData]);
-
 	return (
 		<>
 			<Row id='picture'>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { VIDEO_API_REQUEST } from '../store/constants/action-types';
 import { Row, Col, Table } from 'react-bootstrap';
@@ -9,11 +9,6 @@ import EditVideoTag from './EditVideoTag';
 import VideoPagination from './VideoPagination';
 
 function Video({ fetching, videos, error, getData }) {
-	useEffect(() => {
-		let payload = { page: 1 };
-		getData(payload);
-	}, [getData]);
-
 	return (
 		<>
 			<Row id='video'>

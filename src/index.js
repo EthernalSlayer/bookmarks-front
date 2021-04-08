@@ -5,6 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './store/index';
+import {
+	PICTURE_API_REQUEST,
+	VIDEO_API_REQUEST,
+	TAG_API_REQUEST,
+} from './store/constants/action-types';
+
+store.dispatch({ type: PICTURE_API_REQUEST, payload: { page: 1 } });
+store.dispatch({ type: VIDEO_API_REQUEST, payload: { page: 1 } });
+store.dispatch({ type: TAG_API_REQUEST });
 
 ReactDOM.render(
 	<Provider store={store}>

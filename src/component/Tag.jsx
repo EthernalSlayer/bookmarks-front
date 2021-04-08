@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import {
 	TAG_API_REQUEST,
@@ -20,10 +20,6 @@ function Tag({
 	getPicture,
 	getVideo,
 }) {
-	useEffect(() => {
-		getData();
-	}, [getData]);
-
 	const handleTag = (e) => {
 		let tag = e.target.innerHTML;
 		setActualTag(tag);

@@ -1,3 +1,5 @@
+import produce from 'immer';
+
 import {
 	PICTURE_API_REQUEST,
 	PICTURE_API_SUCCESS,
@@ -20,7 +22,7 @@ import {
 	UPDATE_PICTURE_ERROR,
 } from '../constants/action-types';
 
-const initialState = {
+const INITIAL_STATE = {
 	fetching: false,
 	pictures: null,
 	error: null,
@@ -40,57 +42,82 @@ const initialState = {
 	updateError: null,
 };
 
-export function picturesReducer(state = initialState, action) {
+export const picturesReducer = produce((draft = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case PICTURE_API_REQUEST:
-			return { ...state, fetching: true, error: null };
+			draft.fetching = true;
+			draft.error = null;
+			return draft;
 		case PICTURE_API_SUCCESS:
-			return { ...state, fetching: false, pictures: action.pictures };
+			draft.fetching = false;
+			draft.pictures = action.pictures;
+			return draft;
 		case PICTURE_API_ERROR:
-			return { ...state, fetching: false, pictures: null, error: action.error };
+			draft.fetching = false;
+			draft.pictures = null;
+			draft.error = action.error;
+			return draft;
 		case ADD_PICTURE_MODAL_SHOW:
-			return { ...state, addModalShow: true };
+			draft.addModalShow = true;
+			return draft;
 		case ADD_PICTURE_MODAL_CLOSE:
-			return { ...state, addModalShow: false };
+			draft.addModalShow = false;
+			return draft;
 		case SET_PICTURE_TO_ADD:
-			return { ...state, pictureToAdd: action.payload };
+			draft.pictureToAdd = action.payload;
+			return draft;
 		case ADD_PICTURE_REQUEST:
-			return { ...state, addFetching: true, addSuccess: null, addError: null };
+			draft.addFetching = true;
+			draft.addSuccess = null;
+			draft.addError = null;
+			return draft;
 		case ADD_PICTURE_SUCCESS:
-			return { ...state, addFetching: false, addSuccess: action.message };
+			draft.addFetching = false;
+			draft.addSuccess = action.message;
+			return draft;
 		case ADD_PICTURE_ERROR:
-			return { ...state, addFetching: false, addError: action.error };
+			draft.addFetching = false;
+			draft.addError = action.error;
+			return draft;
 		case REMOVE_PICTURE_REQUEST:
-			return {
-				...state,
-				removeFetching: true,
-				removeSuccess: null,
-				removeError: null,
-			};
+			draft.removeFetching = true;
+			draft.removeSuccess = null;
+			draft.removeError = null;
+			return draft;
 		case REMOVE_PICTURE_SUCCESS:
-			return { ...state, removeFetching: false, removeSuccess: action.message };
+			draft.removeFetching = false;
+			draft.removeSuccess = action.message;
+			return draft;
 		case REMOVE_PICTURE_ERROR:
-			return { ...state, removeFetching: false, removeError: action.error };
+			draft.removeFetching = false;
+			draft.removeError = action.error;
+			return draft;
 		case EDIT_PICTURE_MODAL_SHOW:
-			return { ...state, editModalShow: true };
+			draft.editModalShow = true;
+			return draft;
 		case EDIT_PICTURE_MODAL_CLOSE:
-			return { ...state, editModalShow: false };
+			draft.editModalShow = false;
+			return draft;
 		case SET_PICTURE_TO_EDIT:
-			return { ...state, pictureToEdit: action.payload };
+			draft.pictureToEdit = action.payload;
+			return draft;
 		case SET_PICTURE_TAG_TO_EDIT:
-			return { ...state, pictureTagToEdit: action.payload };
+			draft.pictureTagToEdit = action.payload;
+			return draft;
 		case UPDATE_PICTURE_REQUEST:
-			return {
-				...state,
-				updateFetching: true,
-				updateSuccess: null,
-				updateError: null,
-			};
+			draft.updateFetching = true;
+			draft.updateSuccess = null;
+			draft.updateError = null;
+			return draft;
 		case UPDATE_PICTURE_SUCCESS:
-			return { ...state, updateFetching: false, updateSuccess: action.message };
+			draft.updateFetching = false;
+			draft.updateSuccess = action.message;
+			return draft;
 		case UPDATE_PICTURE_ERROR:
-			return { ...state, updateFetching: false, updateError: action.error };
+			draft.updateFetching = false;
+			draft.updateError = action.error;
+			return draft;
 		default:
-			return state;
+			return draft;
 	}
-}
+}, INITIAL_STATE);

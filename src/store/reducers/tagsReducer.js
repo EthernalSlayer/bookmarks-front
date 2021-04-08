@@ -1,3 +1,5 @@
+import produce from 'immer';
+
 import {
 	TAG_API_REQUEST,
 	TAG_API_SUCCESS,
@@ -9,7 +11,7 @@ import {
 	ADD_TAG_ERROR,
 } from '../constants/action-types';
 
-const initialState = {
+const INITIAL_STATE = {
 	fetching: false,
 	tags: null,
 	error: null,
@@ -20,25 +22,41 @@ const initialState = {
 	addError: null,
 };
 
-export function tagsReducer(state = initialState, action) {
+export const tagsReducer = produce((draft = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case TAG_API_REQUEST:
-			return { ...state, fetching: true, error: null };
+			draft.fetching = true;
+			draft.error = null;
+			return draft;
 		case TAG_API_SUCCESS:
-			return { ...state, fetching: false, tags: action.tags };
+			draft.fetching = false;
+			draft.tags = action.tags;
+			return draft;
 		case TAG_API_ERROR:
-			return { ...state, fetching: false, tags: null, error: action.error };
+			draft.fetching = false;
+			draft.tags = null;
+			draft.error = action.error;
+			return draft;
 		case SET_ACTUAL_TAG:
-			return { ...state, actualTag: action.payload };
+			draft.actualTag = action.payload;
+			return draft;
 		case SET_NEW_TAG:
-			return { ...state, newTag: action.payload };
+			draft.newTag = action.payload;
+			return draft;
 		case ADD_TAG_REQUEST:
-			return { ...state, addFetching: true, addError: null, addSuccess: null };
+			draft.addFetching = true;
+			draft.addError = null;
+			draft.addSuccess = null;
+			return draft;
 		case ADD_TAG_SUCCESS:
-			return { ...state, addFetching: false, addSuccess: action.message };
+			draft.addFetching = false;
+			draft.addSuccess = action.message;
+			return draft;
 		case ADD_TAG_ERROR:
-			return { ...state, addFetching: false, addError: action.error };
+			draft.addFetching = false;
+			draft.addError = action.error;
+			return draft;
 		default:
-			return state;
+			return draft;
 	}
-}
+}, INITIAL_STATE);

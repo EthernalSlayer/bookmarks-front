@@ -1,3 +1,5 @@
+import produce from 'immer';
+
 import {
 	VIDEO_API_REQUEST,
 	VIDEO_API_SUCCESS,
@@ -20,7 +22,7 @@ import {
 	UPDATE_VIDEO_ERROR,
 } from '../constants/action-types';
 
-const initialState = {
+const INITIAL_STATE = {
 	fetching: false,
 	videos: null,
 	error: null,
@@ -40,57 +42,82 @@ const initialState = {
 	updateError: null,
 };
 
-export function videoReducer(state = initialState, action) {
+export const videoReducer = produce((draft = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case VIDEO_API_REQUEST:
-			return { ...state, fetching: true, error: null };
+			draft.fetching = true;
+			draft.error = null;
+			return draft;
 		case VIDEO_API_SUCCESS:
-			return { ...state, fetching: false, videos: action.videos };
+			draft.fetching = false;
+			draft.videos = action.videos;
+			return draft;
 		case VIDEO_API_ERROR:
-			return { ...state, fetching: false, videos: null, error: action.error };
+			draft.fetching = false;
+			draft.videos = null;
+			draft.error = action.error;
+			return draft;
 		case ADD_VIDEO_MODAL_SHOW:
-			return { ...state, addModalShow: true };
+			draft.addModalShow = true;
+			return draft;
 		case ADD_VIDEO_MODAL_CLOSE:
-			return { ...state, addModalShow: false };
+			draft.addModalShow = false;
+			return draft;
 		case SET_VIDEO_TO_ADD:
-			return { ...state, videoToAdd: action.payload };
+			draft.videoToAdd = action.payload;
+			return draft;
 		case ADD_VIDEO_REQUEST:
-			return { ...state, addFetching: true, addSuccess: null, addError: null };
+			draft.addFetching = true;
+			draft.addSuccess = null;
+			draft.addError = null;
+			return draft;
 		case ADD_VIDEO_SUCCESS:
-			return { ...state, addFetching: false, addSuccess: action.message };
+			draft.addFetching = false;
+			draft.addSuccess = action.message;
+			return draft;
 		case ADD_VIDEO_ERROR:
-			return { ...state, addFetching: false, addError: action.error };
+			draft.addFetching = false;
+			draft.addError = action.error;
+			return draft;
 		case REMOVE_VIDEO_REQUEST:
-			return {
-				...state,
-				removeFetching: true,
-				removeSuccess: null,
-				removeError: null,
-			};
+			draft.removeFetching = true;
+			draft.removeSuccess = null;
+			draft.removeError = null;
+			return draft;
 		case REMOVE_VIDEO_SUCCESS:
-			return { ...state, removeFetching: false, removeSuccess: action.message };
+			draft.removeFetching = false;
+			draft.removeSuccess = action.message;
+			return draft;
 		case REMOVE_VIDEO_ERROR:
-			return { ...state, removeFetching: false, removeError: action.error };
+			draft.removeFetching = false;
+			draft.removeError = action.error;
+			return draft;
 		case EDIT_VIDEO_MODAL_SHOW:
-			return { ...state, editModalShow: true };
+			draft.editModalShow = true;
+			return draft;
 		case EDIT_VIDEO_MODAL_CLOSE:
-			return { ...state, editModalShow: false };
+			draft.editModalShow = false;
+			return draft;
 		case SET_VIDEO_TO_EDIT:
-			return { ...state, videoToEdit: action.payload };
+			draft.videoToEdit = action.payload;
+			return draft;
 		case SET_VIDEO_TAG_TO_EDIT:
-			return { ...state, videoTagToEdit: action.payload };
+			draft.videoTagToEdit = action.payload;
+			return draft;
 		case UPDATE_VIDEO_REQUEST:
-			return {
-				...state,
-				updateFetching: true,
-				updateSuccess: null,
-				updateError: null,
-			};
+			draft.updateFetching = true;
+			draft.updateSuccess = null;
+			draft.updateError = null;
+			return draft;
 		case UPDATE_VIDEO_SUCCESS:
-			return { ...state, updateFetching: false, updateSuccess: action.message };
+			draft.updateFetching = false;
+			draft.updateSuccess = action.message;
+			return draft;
 		case UPDATE_VIDEO_ERROR:
-			return { ...state, updateFetching: false, updateError: action.error };
+			draft.updateFetching = false;
+			draft.updateError = action.error;
+			return draft;
 		default:
-			return state;
+			return draft;
 	}
-}
+}, INITIAL_STATE);
