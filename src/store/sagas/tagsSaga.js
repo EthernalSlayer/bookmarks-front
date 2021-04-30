@@ -11,7 +11,7 @@ export default function* watcherSaga() {
 }
 
 function fetchTags() {
-	return axios.get('http://localhost:4000/tags');
+	return axios.get(`${process.env.REACT_APP_API_HOST}/tags`);
 }
 
 function* workerSaga() {
