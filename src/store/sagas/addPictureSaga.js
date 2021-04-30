@@ -20,7 +20,7 @@ function getOembedContent(payload) {
 }
 
 function postPicture(content) {
-	return axios.post('http://localhost:4000/pictures', content);
+	return axios.post(`${process.env.REACT_APP_API_HOST}/pictures`, content);
 }
 
 function* workerSaga(action) {

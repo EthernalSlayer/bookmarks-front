@@ -12,7 +12,7 @@ export default function* watcherSaga() {
 }
 
 function postTag(payload) {
-	return axios.post('http://localhost:4000/tags', payload);
+	return axios.post(`${process.env.REACT_APP_API_HOST}/tags`, payload);
 }
 
 function* workerSaga(action) {

@@ -18,7 +18,7 @@ function getOembedContent(payload) {
 }
 
 function postVideo(content) {
-	return axios.post('http://localhost:4000/videos', content);
+	return axios.post(`${process.env.REACT_APP_API_HOST}/videos`, content);
 }
 
 function* workerSaga(action) {

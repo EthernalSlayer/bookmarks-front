@@ -13,7 +13,7 @@ export default function* watcherSaga() {
 
 function deletePicture(payload) {
 	return axios.delete(
-		`http://localhost:4000/pictures/${payload.pictureToRemove}`
+		`${process.env.REACT_APP_API_HOST}/pictures/${payload.pictureToRemove}`
 	);
 }
 

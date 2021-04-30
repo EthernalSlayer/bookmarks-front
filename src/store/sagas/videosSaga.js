@@ -14,11 +14,11 @@ export default function* watcherSaga() {
 function fetchVideos(payload) {
 	if (payload.tag) {
 		return axios.get(
-			`http://localhost:4000/videos?tag=${payload.tag}&page=${payload.page}&limit=${limit}`
+			`${process.env.REACT_APP_API_HOST}/videos?tag=${payload.tag}&page=${payload.page}&limit=${limit}`
 		);
 	}
 	return axios.get(
-		`http://localhost:4000/videos?page=${payload.page}&limit=${limit}`
+		`${process.env.REACT_APP_API_HOST}/videos?page=${payload.page}&limit=${limit}`
 	);
 }
 

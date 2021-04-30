@@ -12,9 +12,12 @@ export default function* watcherSaga() {
 }
 
 function updateVideo(payload) {
-	return axios.put(`http://localhost:4000/videos/${payload.video}`, {
-		tag: payload.tag,
-	});
+	return axios.put(
+		`${process.env.REACT_APP_API_HOST}/videos/${payload.video}`,
+		{
+			tag: payload.tag,
+		}
+	);
 }
 
 function* workerSaga(action) {

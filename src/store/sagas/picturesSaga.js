@@ -14,11 +14,11 @@ export default function* watcherSaga() {
 function fetchPictures(payload) {
 	if (payload.tag) {
 		return axios.get(
-			`http://localhost:4000/pictures?tag=${payload.tag}&page=${payload.page}&limit=${limit}`
+			`${process.env.REACT_APP_API_HOST}/pictures?tag=${payload.tag}&page=${payload.page}&limit=${limit}`
 		);
 	}
 	return axios.get(
-		`http://localhost:4000/pictures?page=${payload.page}&limit=${limit}`
+		`${process.env.REACT_APP_API_HOST}/pictures?page=${payload.page}&limit=${limit}`
 	);
 }
 

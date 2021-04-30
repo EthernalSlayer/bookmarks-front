@@ -12,7 +12,9 @@ export default function* watcherSaga() {
 }
 
 function deleteVideo(payload) {
-	return axios.delete(`http://localhost:4000/videos/${payload.videoToRemove}`);
+	return axios.delete(
+		`${process.env.REACT_APP_API_HOST}/videos/${payload.videoToRemove}`
+	);
 }
 
 function* workerSaga(action) {
